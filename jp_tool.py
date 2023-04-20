@@ -35,5 +35,13 @@ def main():
     top_categories = cur.execute("SELECT c.category, c.question_count, AVG(q.value) FROM questions q INNER JOIN categories c ON q. category_id=c.id GROUP BY q.category_id ORDER BY c.question_count DESC").fetchall()[0:10]
     #section 4 ends
 
+    #section 2 begin
+    with open('calculations.csv', 'w', newline='') as csvfile:
+        spamwriter = csv.writer(csvfile, delimiter=',')
+        spamwriter.writerow(["Category", "Question Count", "Average Value"])
+        for top_category in top_categories:
+            spamwriter.writerow([top_category[0], top_category[1], top_category[2]])
+    #section 2 end
+
 
 
