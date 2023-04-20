@@ -14,3 +14,21 @@ def get_questions_from_category(con, cur, category):
         for question in json_ret:
             cur.execute("INSERT INTO questions (id, value, question, category_id) VALUES (?, ?, ?, ?)", (question["id"], question["value"], question["question"], question["category"]["id"]))
     con.commit()
+
+
+def main():
+    con = sqlite3.connect("questions.db")
+    cur = con.cursor()
+
+    # section 1 begin
+    last_category = 0
+    with open("./last_category.txt") as fr:
+        last_category = int(fr.readline())
+    
+    get_questions_from_category(con, cur, last_category)
+
+    with open("/last_category.txt", "w") as fw:
+        fw.write(str(last_category+25))
+
+    # section 1 end
+
