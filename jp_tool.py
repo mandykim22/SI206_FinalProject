@@ -20,7 +20,7 @@ def main():
     con = sqlite3.connect("questions.db")
     cur = con.cursor()
 
-    # section 1 begin
+    #section 1 begin
     last_category = 0
     with open("./last_category.txt") as fr:
         last_category = int(fr.readline())
@@ -29,6 +29,11 @@ def main():
 
     with open("/last_category.txt", "w") as fw:
         fw.write(str(last_category+25))
+    #section 1 end
 
-    # section 1 end
+    #section 4 begin
+    top_categories = cur.execute("SELECT c.category, c.question_count, AVG(q.value) FROM questions q INNER JOIN categories c ON q. category_id=c.id GROUP BY q.category_id ORDER BY c.question_count DESC").fetchall()[0:10]
+    #section 4 ends
+
+
 
