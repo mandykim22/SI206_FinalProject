@@ -193,7 +193,6 @@ def insert_into_players(conn, cur):
             player_id += 1
         if count > 25:
                 break
-    return 1
 
 
 
